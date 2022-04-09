@@ -2,9 +2,10 @@
   "name": "music_collection",
   "version": "1.0.0",
   "description": "A command line interface for your music collection.",
-  "main": "index.js",
+  "main": "music.js",
   "scripts": {
-    "test": "test"
+    "test": "jest",
+    "start": "node music"
   },
   "author": "Trey Cooper",
   "license": "ISC",
