@@ -5,7 +5,7 @@ const rl = readline.createInterface({input: process.stdin, output: process.stdou
 const MusicCollectionController = require('./MusicCollectionController')
 const musicCollectionController = new MusicCollectionController()
 
-rl.write(`\n${musicCollectionController.greet()}\n`)
+rl.write(`\n${musicCollectionController.greet()}\n\n`)
 rl.prompt()
 rl.on('line', function(userInput) {
   if (userInput) {
@@ -14,12 +14,12 @@ rl.on('line', function(userInput) {
   if (userInput && userInput.toLowerCase() === 'quit') {
     rl.close()
   } else {
-    rl.setPrompt(`${musicCollectionController.handleInput(userInput)}\n> `)
+    rl.setPrompt(`\n${musicCollectionController.handleInput(userInput)}\n\n> `)
     rl.prompt()
   }
 })
 rl.on('close', () => {
-  console.log('Bye!\n')
+  console.log('\nBye!\n')
   process.exit(0)
 });
 
