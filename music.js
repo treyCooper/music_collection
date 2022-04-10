@@ -1,16 +1,19 @@
 const readline = require('readline')
 const rl = readline.createInterface({input: process.stdin, output: process.stdout})
 
-const MusicCollection = require('./MusicCollection')
-const musicCollection = new MusicCollection()
+const MusicCollectionController = require('./MusicCollectionController')
+const musicCollectionController = new MusicCollectionController()
 
-rl.write(`\n${musicCollection.greeting}\n`)
+rl.write(`\n${musicCollectionController.greet()}\n`)
 rl.prompt()
 rl.on('line', function(userInput) {
-  if (userInput && userInput.trim().toLowerCase() === 'quit') {
+  if (userInput) {
+    userInput = userInput.trim()
+  }
+  if (userInput && userInput.toLowerCase() === 'quit') {
     rl.close()
   } else {
-    rl.setPrompt('Doing whatever you said\n> ')
+    rl.setPrompt(`${musicCollectionController.handleInput(userInput)}\n> `)
     rl.prompt()
   }
 })
