@@ -1,8 +1,11 @@
 const MusicCollectionService = require('./MusicCollectionService')
+const commandDescriptions = require('./commandDescriptions')
 
 class MusicCollectionController {
   constructor() {
     this.musicCollectionService = new MusicCollectionService()
+    this.errorHelpMessage = 'For a list of available commands and their descriptions run command: help'
+    this.commandDescriptions = commandDescriptions
   }
 
   greet () {
@@ -14,10 +17,13 @@ class MusicCollectionController {
     const trimmedInput = inputSplitByQuotes.map(item => item.trim())
     const filteredInput = trimmedInput.filter(item => item !== '')
     if (filteredInput.length > 3) {
-      return 'Too many arguments passed'
+      return `Too many arguments passed\n${this.errorHelpMessage}`
     }
     const [command, arg1, arg2] = filteredInput
     switch (command) {
+      case 'help':
+        return this.help()
+        break
       case 'add':
         return this.add({arg1, arg2})
         break
@@ -37,7 +43,7 @@ class MusicCollectionController {
         return this.play(arg1)
         break
       default:
-        return `Invalid command ${command}`
+        return `Invalid command: ${command}\n${this.errorHelpMessage}`
     }
   }
 
@@ -96,6 +102,10 @@ class MusicCollectionController {
       return errorMessage
     }
     return this.musicCollectionService.showUnplayedByArtist(artist)
+  }
+
+  help () {
+    return this.commandDescriptions
   }
 
 }

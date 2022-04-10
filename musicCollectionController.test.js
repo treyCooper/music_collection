@@ -1,6 +1,7 @@
 
 const MusicCollectionService = require('./MusicCollectionService')
 const MusicCollectionController = require('./MusicCollectionController')
+const commandDescriptions = require('./commandDescriptions')
 jest.mock('./MusicCollectionService')
 
 beforeEach(() => {
@@ -30,7 +31,14 @@ describe('returns error for invalid commands', () => {
   test('calls add method', () => {
     const musicCollectionController = new MusicCollectionController()
     const userInput = "malicious user input"
-    expect(musicCollectionController.handleInput(userInput)).toBe(`Invalid command ${userInput}`);
+    expect(musicCollectionController.handleInput(userInput)).toEqual(expect.stringMatching((`Invalid command: ${userInput}`)));
+  })
+})
+
+describe('help', () => {
+  test('help command returns command descriptions', () => {
+    const musicCollectionController = new MusicCollectionController()
+    expect(musicCollectionController.help()).toBe(commandDescriptions);
   })
 })
 
